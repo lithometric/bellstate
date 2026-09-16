@@ -64,6 +64,18 @@ function createWindow() {
     },
   });
   win.loadFile('index.html');
+
+  // Docs tooling: MB_CAPTURE=/path/out.png renders the board, screenshots
+  // this window's content, and exits. Used to regenerate README images.
+  if (process.env.MB_CAPTURE) {
+    win.webContents.once('did-finish-load', () => {
+      setTimeout(async () => {
+        const image = await win.webContents.capturePage();
+        fs.writeFileSync(process.env.MB_CAPTURE, image.toPNG());
+        app.quit();
+      }, 3500);
+    });
+  }
 }
 
 // Current z-order bounds across all shapes (fractional-index strings).
