@@ -58,7 +58,7 @@ for (const target of TARGETS) {
         license: 'MIT',
         repository: {
           type: 'git',
-          url: 'git+https://github.com/lithometric/eletron-global-manager.git',
+          url: 'git+https://github.com/lithometric/bellstate.git',
         },
         os: [target.os],
         cpu: [target.cpu],

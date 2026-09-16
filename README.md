@@ -1,6 +1,6 @@
 # bellstate — Electron State Management & Real-Time Sync Between Desktop Apps
 
-[![CI](https://github.com/lithometric/eletron-global-manager/actions/workflows/ci.yml/badge.svg)](https://github.com/lithometric/eletron-global-manager/actions/workflows/ci.yml)
+[![CI](https://github.com/lithometric/bellstate/actions/workflows/ci.yml/badge.svg)](https://github.com/lithometric/bellstate/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/badge/npm-bellstate-red)](https://www.npmjs.com/package/bellstate)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 ![Platforms](https://img.shields.io/badge/platform-macOS%20%7C%20Linux%20%7C%20Windows-blue)
