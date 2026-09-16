@@ -1,6 +1,6 @@
 {
   "name": "bellstate",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Machine-global state for Electron and Node processes — one store, every process, backed by a Rust daemon",
   "license": "MIT",
   "author": "Kevin Vera",
