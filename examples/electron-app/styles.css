@@ -1,0 +1,235 @@
+:root {
+  color-scheme: dark;
+  font-family: system-ui, -apple-system, sans-serif;
+  --bg: #111113;
+  --panel: #1b1b1f;
+  --border: #2c2c33;
+  --text: #e7e7ea;
+  --muted: #8b8b94;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+  user-select: none;
+}
+
+/* ---- toolbar ---- */
+
+#toolbar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 0.9rem;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+}
+
+.group { display: flex; align-items: center; gap: 0.3rem; }
+.group.right { margin-left: auto; }
+
+.brand .logo { font-size: 1.15rem; margin-right: 0.35rem; }
+
+.me-chip {
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: var(--border);
+}
+
+#toolbar button {
+  font-size: 0.95rem;
+  min-width: 2rem;
+  height: 2rem;
+  padding: 0 0.5rem;
+  border-radius: 7px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+}
+
+#toolbar button:hover { background: var(--border); }
+#toolbar button.active { border-color: #6d6df0; background: #26264a; }
+
+.swatch {
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+.swatch.active { border-color: #fff; }
+
+/* ---- presence ---- */
+
+#peers { display: flex; margin-right: 0.6rem; }
+.avatar {
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #111;
+  border: 2px solid var(--panel);
+  margin-left: -0.45rem;
+}
+.avatar:first-child { margin-left: 0; }
+
+.status {
+  font-size: 0.75rem;
+  padding: 0.18rem 0.6rem;
+  border-radius: 999px;
+  background: #3a2a2a;
+  color: #f0a3a3;
+}
+.status.ok { background: #1d3226; color: #6fdb96; }
+
+/* ---- stage ---- */
+
+#stage {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  background-image: radial-gradient(var(--border) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+#canvas { position: absolute; inset: 0; cursor: default; }
+
+#canvas .shape { cursor: grab; }
+#canvas .shape.locked-other { cursor: not-allowed; }
+
+.lock-tag {
+  font-size: 11px;
+  font-weight: 600;
+  paint-order: stroke;
+}
+
+/* ---- live cursors ---- */
+
+#cursors { position: absolute; inset: 0; pointer-events: none; }
+
+.cursor {
+  position: absolute;
+  left: 0;
+  top: 0;
+  /* Positioned via translate3d from the rAF interpolation loop: stays on
+     the compositor, no layout work, smooth at the display refresh rate. */
+  will-change: transform;
+}
+.cursor .name {
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #111;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+/* ---- toasts ---- */
+
+#toasts {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  pointer-events: none;
+}
+.toast {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+  animation: toast-in 160ms ease-out;
+}
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ---- vault note ---- */
+
+#vault-note {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+  max-width: 20rem;
+  display: flex;
+  gap: 0.45rem;
+  align-items: baseline;
+  background: var(--panel);
+  border: 1px solid #6d5a1e;
+  border-radius: 8px;
+  padding: 0.45rem 0.7rem;
+  font-size: 0.8rem;
+}
+.vault-by { opacity: 0.5; font-size: 0.7rem; }
+
+/* ---- chat (stream with bounded history) ---- */
+
+#chat {
+  position: absolute;
+  left: 0.8rem;
+  bottom: 0.8rem;
+  width: 15.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  background: color-mix(in srgb, var(--panel) 88%, transparent);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.5rem;
+}
+
+#chat-log {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  max-height: 9rem;
+  overflow-y: auto;
+  font-size: 0.75rem;
+}
+
+#chat-log .msg b { font-weight: 600; }
+
+#chat-input {
+  font-size: 0.75rem;
+  padding: 0.35rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: inherit;
+}
+
+/* ---- status bar ---- */
+
+#statusbar {
+  display: flex;
+  gap: 1.2rem;
+  padding: 0.3rem 0.9rem;
+  font-size: 0.72rem;
+  color: var(--muted);
+  background: var(--panel);
+  border-top: 1px solid var(--border);
+  font-variant-numeric: tabular-nums;
+}
+#statusbar .right { margin-left: auto; }

@@ -1,0 +1,20 @@
+{
+  "name": "roy-app",
+  "private": true,
+  "version": "0.1.0",
+  "description": "TypeScript Electron example: a machine-global todo list shared through bellstate",
+  "main": "dist/main.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "start": "npm run build && electron ."
+  },
+  "dependencies": {
+    "bellstate": "file:../../packages/bellstate/bellstate-0.1.0.tgz"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "electron": "^44.0.0",
+    "typescript": "^5.6.0"
+  }
+}

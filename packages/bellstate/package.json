@@ -1,0 +1,50 @@
+{
+  "name": "bellstate",
+  "version": "0.1.0",
+  "description": "Machine-global state for Electron and Node processes — one store, every process, backed by a Rust daemon",
+  "license": "MIT",
+  "author": "Kevin Vera",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.js"
+    },
+    "./main": {
+      "types": "./main.d.ts",
+      "default": "./main.js"
+    },
+    "./preload": {
+      "types": "./preload.d.ts",
+      "default": "./preload.js"
+    }
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "daemon-path.js",
+    "main.js",
+    "preload.js",
+    "index.d.ts",
+    "main.d.ts",
+    "preload.d.ts",
+    "bin/",
+    "cli.js"
+  ],
+  "keywords": [
+    "electron",
+    "state",
+    "ipc",
+    "global-state",
+    "daemon",
+    "cross-process"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lithometric/eletron-global-manager.git"
+  },
+  "bin": {
+    "bellstate": "./cli.js"
+  }
+}

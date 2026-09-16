@@ -1,0 +1,27 @@
+{
+  "name": "bellstate-react",
+  "version": "0.1.0",
+  "description": "React hooks for bellstate — machine-global state in Electron renderers",
+  "license": "MIT",
+  "author": "Kevin Vera",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "files": [
+    "index.js",
+    "index.d.ts"
+  ],
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "keywords": [
+    "electron",
+    "react",
+    "hooks",
+    "state",
+    "bellstate"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lithometric/eletron-global-manager.git"
+  }
+}

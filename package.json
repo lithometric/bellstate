@@ -1,0 +1,21 @@
+{
+  "name": "bellstate-monorepo",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Machine-global state manager for Electron and Node processes, backed by a Rust daemon",
+  "license": "MIT",
+  "author": "Kevin Vera",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build:daemon": "cargo build --release --manifest-path daemon/Cargo.toml",
+    "test:e2e": "node test/e2e/run.js",
+    "test": "npm run build:daemon && npm run test:e2e",
+    "bundle:daemon": "node scripts/bundle-daemon.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lithometric/eletron-global-manager.git"
+  }
+}

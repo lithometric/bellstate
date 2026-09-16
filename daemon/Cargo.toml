@@ -1,0 +1,16 @@
+[package]
+name = "bellstated"
+version = "0.1.0"
+edition = "2021"
+description = "Machine-global state daemon for bellstate"
+license = "MIT"
+
+[dependencies]
+serde_json = "1"
+dirs = "5"
+base64 = "0.22"
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net", "io-util", "sync", "time", "fs", "signal"] }
+
+[profile.release]
+lto = true
+strip = true

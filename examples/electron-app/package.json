@@ -1,0 +1,21 @@
+{
+  "name": "electron-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "start2": "electron . --instance=2"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "electron": "^44.4.1"
+  },
+  "dependencies": {
+    "bellstate": "file:../../packages/bellstate/bellstate-0.1.0.tgz"
+  }
+}

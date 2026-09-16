@@ -1,0 +1,8 @@
+node_modules/
+daemon/target/
+packages/bellstate/bin/
+packages/bellstate/*.tgz
+dist/
+out/
+*.log
+.DS_Store

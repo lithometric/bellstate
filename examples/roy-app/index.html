@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'; style-src 'self'"
+  />
+  <title>roy-app — shared todos</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Shared todos</h1>
+      <span id="status" class="status">connecting…</span>
+    </header>
+    <p class="hint">
+      Every instance of this app on the machine shares this list live.
+      Launch it twice and watch.
+    </p>
+
+    <form id="add-form">
+      <input id="new-todo" type="text" placeholder="Add a todo…" autocomplete="off" />
+      <button type="submit">Add</button>
+    </form>
+
+    <ul id="list"></ul>
+    <p id="empty" class="hint">Nothing yet — add one above.</p>
+
+    <footer>rev <span id="rev">0</span></footer>
+  </main>
+  <script src="dist/renderer.js"></script>
+</body>
+</html>

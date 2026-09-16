@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:"
+  />
+  <title>MultiBoard</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header id="toolbar">
+    <div class="group brand">
+      <span class="logo">▦</span>
+      <span id="me-chip" class="me-chip">…</span>
+    </div>
+    <div class="group">
+      <button id="tool-rect" title="Rectangle (R)">▭</button>
+      <button id="tool-ellipse" title="Ellipse (O)">◯</button>
+      <button id="tool-note" title="Sticky note (N)">▤</button>
+      <button id="tool-image" title="Place image…">🖼</button>
+      <input id="image-input" type="file" accept="image/*" hidden />
+    </div>
+    <div class="group" id="swatches"></div>
+    <div class="group">
+      <button id="tool-undo" title="Undo my last change (⌘Z)">↩︎</button>
+      <button id="tool-redo" title="Redo (⇧⌘Z)">↪︎</button>
+    </div>
+    <div class="group">
+      <button id="tool-front" title="Bring to front (⌘]) — fractional index">⬆</button>
+      <button id="tool-back" title="Send to back (⌘[) — fractional index">⬇</button>
+      <button id="tool-delete" title="Delete (⌫)">🗑</button>
+    </div>
+    <div class="group">
+      <button id="tool-vault" title="Shared secret note — encrypted at rest">🔒</button>
+    </div>
+    <div class="group">
+      <button id="tool-template" title="Drop in a starter layout (one atomic mset)">✨ Template</button>
+      <button id="tool-clear" title="Wipe the artwork (atomic multi-delete)">Clear</button>
+      <button id="tool-crash" title="SIGKILL the daemon — watch it recover">💥</button>
+    </div>
+    <div class="group right">
+      <div id="peers"></div>
+      <span id="status" class="status">connecting…</span>
+    </div>
+  </header>
+
+  <main id="stage">
+    <svg id="canvas" width="100%" height="100%"></svg>
+    <div id="cursors"></div>
+    <div id="toasts"></div>
+    <div id="vault-note" hidden>
+      <span class="vault-icon">🔒</span>
+      <span id="vault-text"></span>
+      <span id="vault-by" class="vault-by"></span>
+    </div>
+    <aside id="chat">
+      <div id="chat-log"></div>
+      <input id="chat-input" type="text" placeholder="Message the board… (stream, keep 40)" autocomplete="off" />
+    </aside>
+  </main>
+
+  <footer id="statusbar">
+    <span id="shape-count">0 shapes</span>
+    <span id="created-count"></span>
+    <span id="rate" title="Write rate per user — retunes as users join/leave"></span>
+    <span id="rev" class="right">rev 0</span>
+  </footer>
+
+  <script src="renderer.js"></script>
+</body>
+</html>
