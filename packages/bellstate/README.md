@@ -36,9 +36,18 @@ Separate Electron apps, background helpers, CLIs, and shells on the same compute
               └─────────────────────────────────────┘
 ```
 
+## What's new in 0.2.0
+
+- **Prebuilt daemons for every platform.** `npm install bellstate` now pulls the right `bellstated` binary automatically via per-platform optional dependencies (`bellstate-darwin-arm64`, `bellstate-darwin-x64`, `bellstate-linux-x64`, `bellstate-linux-arm64`, `bellstate-win32-x64`) — the esbuild pattern. The Linux binaries are statically linked (musl), so they run on any distro. No Rust toolchain, no postinstall scripts. *(The Windows binary package is temporarily held up in npm's publish review; until it lands, Windows users can point `BELLSTATE_DAEMON` at a binary built with `cargo build --release --manifest-path daemon/Cargo.toml`.)*
+- **Framework bindings for React, Vue, Svelte, and Angular.** Four new packages — [`bellstate-react`](https://www.npmjs.com/package/bellstate-react) (hooks), [`bellstate-vue`](https://www.npmjs.com/package/bellstate-vue) (composables/`v-model`), [`bellstate-svelte`](https://www.npmjs.com/package/bellstate-svelte) (stores/`$store`), [`bellstate-angular`](https://www.npmjs.com/package/bellstate-angular) (signals) — see [Framework bindings](#framework-bindings-react-vue-svelte-angular--vite-ready) below. All are bundler-friendly plain modules (Vite, webpack, esbuild) with zero runtime dependencies beyond their framework.
+- **Slimmer install.** The main `bellstate` package no longer bundles a binary (~25 kB tarball); daemons come from the platform packages. Every published package now ships its README and MIT license.
+- Cross-platform builds are verified: the full 25-step e2e suite passes on macOS arm64 + x64 and Linux arm64 + x64 against the exact published binaries.
+
 ## Why does this exist?
 
-Electron gives you IPC *inside* one app. It gives you **nothing between apps**. If you ship two desktop apps (or an app + a menu-bar companion + a CLI + a background updater) that need shared settings, session state, auth tokens, presence, or coordination, you end up hand-rolling lock files, polling JSON on disk, or running a local HTTP server. bellstate replaces all of that with one primitive: a machine-global key/value store with subscriptions, atomic writes, encrypted values, and process presence.
+The short version: an intern failed Roy and Cluely at building exactly this. Watching that project go under made the gap obvious — there was no off-the-shelf primitive for sharing live state between desktop processes, so every team that needs it (and Cluely-style overlay apps *really* need it) ends up hand-rolling one under deadline pressure. bellstate is that missing primitive, built properly. (The `examples/roy-app` name is a nod to the origin.)
+
+The longer version: Electron gives you IPC *inside* one app. It gives you **nothing between apps**. If you ship two desktop apps (or an app + a menu-bar companion + a CLI + a background updater) that need shared settings, session state, auth tokens, presence, or coordination, you end up hand-rolling lock files, polling JSON on disk, or running a local HTTP server. bellstate replaces all of that with one primitive: a machine-global key/value store with subscriptions, atomic writes, encrypted values, and process presence.
 
 - **Synchronous reads** — each client keeps a local replica updated by daemon broadcasts; `store.get(key)` never blocks.
 - **No lost updates** — per-key revisions + compare-and-set; `update(key, fn)` retries automatically; `incr` is atomic; `merge` is per-property last-writer-wins (the same conflict model Figma described for its multiplayer editor); `mset` writes many keys in one revision.
