@@ -93,8 +93,10 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Publish bellstate-react
-        run: npm publish --access public
-        working-directory: packages/bellstate-react
+      - name: Publish framework packages
+        run: |
+          for pkg in bellstate-react bellstate-vue bellstate-svelte bellstate-angular; do
+            (cd "packages/$pkg" && npm publish --access public)
+          done
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

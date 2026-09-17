@@ -99,7 +99,18 @@ window.bellstate.watch('theme', ({ value }) => applyTheme(value));
 window.bellstate.pulse('cursor:me', { x, y });     // 120Hz transient lane
 ```
 
-**React:** `npm install bellstate-react` → `useBellstate(key)`, `useBellstateIncr(key)`, `useBellstateStatus()`.
+`npm install bellstate` ships a prebuilt daemon for **macOS (arm64 + x64), Linux (x64 + arm64, static musl), and Windows (x64)** via per-platform optional dependencies, esbuild-style — no toolchain needed.
+
+## Framework bindings (React, Vue, Svelte, Angular — Vite-ready)
+
+Thin renderer-side adapters over the `window.bellstate` preload bridge. Each is a plain module with no Node-specific code, so they work with Vite, webpack, esbuild, or no bundler at all:
+
+- **React** — `npm install bellstate-react`: `const [todos, setTodos] = useBellstate('todos', [])`, plus `useBellstateIncr(key)`, `useBellstateStatus()`, `useBellstateRev()`.
+- **Vue 3** — `npm install bellstate-vue`: `const theme = useBellstate('theme', 'light')` returns a writable computed ref — `v-model` works across every app on the machine.
+- **Svelte** — `npm install bellstate-svelte`: `const theme = bellstateStore('theme')` → `$theme`, `bind:value`. Zero dependencies (plain store contract, Svelte 3–5).
+- **Angular 16+** — `npm install bellstate-angular`: `counter = bellstateSignal('counter', 0)` returns a `Signal<T>`, plus `setBellstate`, `incrBellstate`, `bellstateConnected()`.
+
+All four share one renderer replica (one snapshot + one subscription per window), and every value updates live when **any process on the machine** writes it.
 
 ## Quickstart (plain Node.js)
 
@@ -217,7 +228,7 @@ Benchmarked on the included suite: ~350k transient messages/sec, ~200k durable w
 It *only* works offline — nothing ever leaves the machine. Writes made while the daemon is down queue and replay.
 
 **macOS, Windows, Linux?**
-All three. Unix sockets on macOS/Linux, named pipes on Windows; CI runs the full 25-step suite on each.
+All three. Unix sockets on macOS/Linux, named pipes on Windows; CI runs the full 25-step suite on each. Prebuilt `bellstated` binaries ship for macOS arm64/x64, Linux x64/arm64 (statically linked musl — runs on any distro), and Windows x64 as `bellstate-<platform>-<arch>` optional dependencies; the right one installs automatically.
 
 ## In the wild
 
@@ -231,7 +242,7 @@ npm test        # cargo-builds the daemon, runs the 25-step e2e suite
 
 The e2e suite is the contract: CAS under contention (2×30 concurrent `update()`s, zero lost), 2×100 concurrent `incr`s → exactly 200, concurrent `merge`s combining per-property, mset atomicity, stream backfill, per-user undo, ciphertext-on-disk verification, ordering through 50 nested fractional inserts, SIGKILL → WAL recovery, lock re-claim, offline queue flush.
 
-The `Publish to npm` workflow builds `bellstated` for macOS x64/arm64, Linux x64/arm64, and Windows x64, publishes per-platform binary packages, injects them as `optionalDependencies`, and publishes `bellstate` + `bellstate-react` — so `npm install bellstate` ships the right daemon everywhere, esbuild-style.
+The `Publish to npm` workflow builds `bellstated` for macOS x64/arm64, Linux x64/arm64, and Windows x64, publishes per-platform binary packages, injects them as `optionalDependencies`, and publishes `bellstate` plus the framework packages (`bellstate-react`, `bellstate-vue`, `bellstate-svelte`, `bellstate-angular`) — so `npm install bellstate` ships the right daemon everywhere, esbuild-style. The same flow runs locally by cross-compiling with `cargo zigbuild` and running `node scripts/gen-platform-packages.js <binaries-dir> --inject` before `npm publish`.
 
 ## Roadmap
 

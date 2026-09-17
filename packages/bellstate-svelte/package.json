@@ -1,9 +1,10 @@
 {
-  "name": "bellstate-react",
+  "name": "bellstate-svelte",
   "version": "0.2.0",
-  "description": "React hooks for bellstate — machine-global state in Electron renderers",
+  "description": "Svelte stores for bellstate — machine-global state in Electron renderers",
   "license": "MIT",
   "author": "Kevin Vera",
+  "type": "module",
   "main": "index.js",
   "types": "index.d.ts",
   "exports": {
@@ -16,13 +17,10 @@
     "index.js",
     "index.d.ts"
   ],
-  "peerDependencies": {
-    "react": ">=18"
-  },
   "keywords": [
     "electron",
-    "react",
-    "hooks",
+    "svelte",
+    "store",
     "state",
     "bellstate"
   ],

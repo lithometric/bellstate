@@ -1,9 +1,10 @@
 {
-  "name": "bellstate-react",
+  "name": "bellstate-vue",
   "version": "0.2.0",
-  "description": "React hooks for bellstate — machine-global state in Electron renderers",
+  "description": "Vue composables for bellstate — machine-global state in Electron renderers",
   "license": "MIT",
   "author": "Kevin Vera",
+  "type": "module",
   "main": "index.js",
   "types": "index.d.ts",
   "exports": {
@@ -17,12 +18,12 @@
     "index.d.ts"
   ],
   "peerDependencies": {
-    "react": ">=18"
+    "vue": ">=3"
   },
   "keywords": [
     "electron",
-    "react",
-    "hooks",
+    "vue",
+    "composables",
     "state",
     "bellstate"
   ],
